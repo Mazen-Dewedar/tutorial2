@@ -59,7 +59,7 @@ export default function InstaApp() {
             <div className='container w-full flex justify-center gap-4 flex-col'>
                 <p className='font-bold text-center'>Name : {name}</p>
                 <p className='font-bold text-center'>Balance : {showIndex ? Balance : "****"}</p>
-                <div className='flex flex-row justify-center gap-3'>
+                <div className='flex flex-col md:flex-row justify-center gap-3'>
                     <button className={`btn text-white w-[200px] btn-neutral`} onClick={() => { editshowTransaction(!showTransaction) }}>{showTransaction ? "Hide Transactions" : "Show Transactions"}</button>
                     <button className={`btn text-white w-[150px] ${showIndex ? "btn-warning" : "btn-primary"}`} onClick={() => { editSowIndex(!showIndex) }}>{showIndex ? "Hide Balance" : "Show Balance"}</button>
                     {
