@@ -19,7 +19,7 @@ export default function Shop_page() {
 
     return (
         <div className="flex justify-center px-7">
-            <div className="container grid grid-cols-4 gap-7">
+            <div className="container grid grid-cols-1 md:grid-cols-2  lg:grid-cols-4 gap-7">
                 {
                     data.map((el) => {
                         return (
