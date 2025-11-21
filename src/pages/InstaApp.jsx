@@ -1,5 +1,6 @@
 import moment from 'moment/moment';
 import React, { useEffect, useRef, useState } from 'react'
+import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 export default function InstaApp() {
@@ -11,8 +12,8 @@ export default function InstaApp() {
     const [showTransaction, editshowTransaction] = useState(false)
     const [Transactions, editTransaction] = useState()
     useEffect(() => {
-        let hasLogged =localStorage.getItem("logged")
-        console.log("the ans "+hasLogged)
+        let hasLogged =JSON.parse(localStorage.getItem("logged"))
+        console.log(hasLogged)
         if (hasLogged) {
             let BalanceFromLocalStorage = JSON.parse(localStorage.getItem("Balance")) || 0;
             let TransactionsLocal = JSON.parse(localStorage.getItem("Transactions")) || [];
@@ -22,7 +23,12 @@ export default function InstaApp() {
             nav("/login")
         }
     }, [])
-
+    const Logout =()=>{
+        localStorage.setItem("logged",JSON.stringify(false))
+        console.log(JSON.parse(localStorage.getItem("logged")))
+        nav("/login")
+        toast.success("loggedout successfully")
+    }
     let Deposite = () => {
         let amount = +value.current.value
         let x = moment().format('YYYY-MM-DD / hh-mm-ss A')
@@ -81,6 +87,7 @@ export default function InstaApp() {
                 <p className='font-bold text-center'>Name : {name}</p>
                 <p className='font-bold text-center'>Balance : {showIndex ? Balance : "****"}</p>
                 <div className='flex flex-col md:flex-row justify-center gap-3'>
+                    <button className='btn btn-error' onClick={Logout} >Logout</button>
                     <button className={`btn text-white w-[200px] btn-neutral`} onClick={() => { editshowTransaction(!showTransaction) }}>{showTransaction ? "Hide Transactions" : "Show Transactions"}</button>
                     <button className={`btn text-white w-[150px] ${showIndex ? "btn-warning" : "btn-primary"}`} onClick={() => { editSowIndex(!showIndex) }}>{showIndex ? "Hide Balance" : "Show Balance"}</button>
                     {
