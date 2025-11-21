@@ -9,7 +9,9 @@ export default function MainHeader() {
                 <Link to="/" className='p-1.5 cursor-pointer hover:text-[gray] focus:bg-blue-950 rounded-2xl'>Products</Link>
                 <Link to="/Dashboard" className='p-1.5 cursor-pointer hover:text-[gray] focus:bg-blue-950 rounded-2xl'>Dashboard</Link>
                 <Link to="/InstaApp" className='p-1.5 cursor-pointer hover:text-[gray] focus:bg-blue-950 rounded-2xl'>InstaApp</Link>
-                <Link to="/blog" className='p-1.5 cursor-pointer hover:text-[gray] focus:bg-blue-950 rounded-2xl'>Blogs</Link>
+                <Link to="/login" className='p-1.5 cursor-pointer hover:text-[gray] focus:bg-blue-950 rounded-2xl'>login</Link>
+                <Link to="/Register" className='p-1.5 cursor-pointer hover:text-[gray] focus:bg-blue-950 rounded-2xl'>Register</Link>
+
             </div>
             <details className="dropdown fle flex-row lg:hidden pr-4">
                 <summary className="btn m-1">open or close</summary>
@@ -17,7 +19,8 @@ export default function MainHeader() {
                     <li><Link to="/" className='p-1.5 cursor-pointer hover:text-[gray] focus:bg-blue-950 rounded-2xl'>Products</Link></li>
                     <li><Link to="/Dashboard" className='p-1.5 cursor-pointer hover:text-[gray] focus:bg-blue-950 rounded-2xl'>Dashboard</Link></li>
                     <li><Link to="/InstaApp" className='p-1.5 cursor-pointer hover:text-[gray] focus:bg-blue-950 rounded-2xl'>InstaApp</Link></li>
-                    <li><Link to="/blog" className='p-1.5 cursor-pointer hover:text-[gray] focus:bg-blue-950 rounded-2xl'>Blogs</Link></li>
+                    <li><Link to="/login" className='p-1.5 cursor-pointer hover:text-[gray] focus:bg-blue-950 rounded-2xl'>login</Link></li>
+                    <li><Link to="/Register" className='p-1.5 cursor-pointer hover:text-[gray] focus:bg-blue-950 rounded-2xl'>Register</Link></li>
                 </ul>
             </details>
         </div>

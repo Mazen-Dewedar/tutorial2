@@ -1,29 +1,47 @@
-import React, { useRef, useState } from 'react'
+import moment from 'moment/moment';
+import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function InstaApp() {
+    let nav = useNavigate()
     let value = useRef();
     const [name] = useState("Mazen")
     const [Balance, editBalance] = useState(0)
     const [showIndex, editSowIndex] = useState(false)
     const [showTransaction, editshowTransaction] = useState(false)
-    const [Transactions, editTransaction] = useState(JSON.parse(localStorage.getItem("Transactions")) || [])
-    
-    
+    const [Transactions, editTransaction] = useState()
+    useEffect(() => {
+        let hasLogged =localStorage.getItem("logged")
+        console.log("the ans "+hasLogged)
+        if (hasLogged) {
+            let BalanceFromLocalStorage = JSON.parse(localStorage.getItem("Balance")) || 0;
+            let TransactionsLocal = JSON.parse(localStorage.getItem("Transactions")) || [];
+            editBalance(BalanceFromLocalStorage);
+            editTransaction(TransactionsLocal);
+        } else {
+            nav("/login")
+        }
+    }, [])
+
     let Deposite = () => {
         let amount = +value.current.value
-        if (amount!=""){
+        let x = moment().format('YYYY-MM-DD / hh-mm-ss A')
+        if (amount != "") {
             editBalance(Balance + amount)
             value.current.value = "";
             let trans = {
                 Before: Balance,
                 type: "deposite",
-                After: Balance + amount
+                After: Balance + amount,
+                date: x
             }
+            let After = Balance + amount
             let copy = [...Transactions]
             copy.push(trans)
             editTransaction(copy)
+            localStorage.setItem("Balance", JSON.stringify(After))
             localStorage.setItem("Transactions", JSON.stringify(copy))
-        }else{
+        } else {
             alert("you have to enter a value")
         }
     }
@@ -31,25 +49,28 @@ export default function InstaApp() {
 
     let withdraw = () => {
         let amount = +value.current.value
-        if(amount!=""){
+        let x = moment().format('YYYY-MM-DD / hh-mm-ss A')
+        if (amount != "") {
             if (amount <= Balance) {
                 editBalance(Balance - amount)
                 let trans = {
                     Before: Balance,
                     type: "withdraw",
-                    After: Balance - amount
+                    After: Balance - amount,
+                    date: x
                 }
+                let After = Balance - amount
                 let copy = [...Transactions]
                 copy.push(trans)
                 editTransaction(copy)
                 localStorage.setItem("Transactions", JSON.stringify(copy))
-    
+                localStorage.setItem("Balance", JSON.stringify(After))
             }
-    
+
             else {
                 alert("Not enough")
             }
-        }else{
+        } else {
             alert("you have to enter a value")
         }
         value.current.value = "";
@@ -96,6 +117,7 @@ export default function InstaApp() {
                                                     <td>{el.Before}</td>
                                                     <td className={`p-3 ${el.type == "withdraw" ? "btn btn-error" : "btn btn-success"}`} >{el.type}</td>
                                                     <td>{el.After}</td>
+                                                    <td>{el.date}</td>
                                                 </tr>
                                             )
                                         })
